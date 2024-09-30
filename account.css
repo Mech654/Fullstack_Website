@@ -1,0 +1,98 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #434343;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    text-align: center;
+    background-color: #000;
+    padding: 1em 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline;
+    margin: 0 2em;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.navbar a:hover {
+    color: #ccc;
+}
+
+body {
+    padding-top: 4em;
+}
+
+.form-container {
+    text-align: center;
+    margin-top: 5em;
+}
+
+.form-toggle {
+    margin-bottom: 1em;
+}
+
+.form-toggle button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 1em 2em;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.form-toggle button:hover {
+    background-color: #333;
+}
+
+.form {
+    display: none;
+    background-color: #434343;
+    padding: 2em;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form input {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 5px;
+}
+
+.form button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 1em 2em;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.form button:hover {
+    background-color: #333;
+}
+
+#login-form {
+    display: block;
+}
