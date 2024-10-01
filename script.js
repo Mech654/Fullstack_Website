@@ -1,19 +1,19 @@
-function toggleForm(form) {
+function toggleForm(formType) {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const loginToggle = document.getElementById('login-toggle');
     const registerToggle = document.getElementById('register-toggle');
 
-    if (form === 'login') {
+    if (formType === 'login') {
         loginForm.style.display = 'block';
         registerForm.style.display = 'none';
-        loginToggle.style.backgroundColor = '#333';
-        registerToggle.style.backgroundColor = '#000';
+        loginToggle.classList.add('active');
+        registerToggle.classList.remove('active');
     } else {
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
-        loginToggle.style.backgroundColor = '#000';
-        registerToggle.style.backgroundColor = '#333';
+        loginToggle.classList.remove('active');
+        registerToggle.classList.add('active');
     }
 }
 
@@ -21,28 +21,67 @@ function login() {
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
     alert(`Logging in with Username: ${username} and Password: ${password}`);
+    
+    callPythonLogin(username, password).then(response => {
+        if (response.result !== 'success') {
+            alert('Login failed. Please try again.');
+            return;
+        }
+        alert('Login successful!');
+        showHiddenImage();
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
 }
 
 function register() {
     const username = document.getElementById('register-username').value;
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
-
-    if (!email.includes('@')) {
-        alert("You lack a '@' in your email");
-        return;
-    }
-
     alert(`Registering with Username: ${username}, Email: ${email}, and Password: ${password}`);
-    callPythonFunction('Hello from JavaScript');
-}
-
-
-const { exec } = require('child_process');
-
-function callPythonFunction(param) {
-    exec(`python3 Python.py ${param}`, (stdout) => {
-        console.log(`Output: ${stdout}`);
+    
+    callPythonRegister(username, email, password).then(response => {
+        if (response.result !== 'success') {
+            alert('Registration failed. Please try again.');
+            return;
+        }
+        alert('Registration successful!');
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
     });
 }
 
+function showHiddenImage() {
+    const hiddenImage = document.getElementById('hidden-image');
+    hiddenImage.style.opacity = '100%';
+}
+
+async function callPythonLogin(username, password) {
+    console.log('Sending POST request to Flask with username:', username, 'password:', password);
+    const response = await fetch('http://127.0.0.1:5000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username, password: password })
+    });
+    const data = await response.json();
+    console.log('Response from Flask:', data.result);
+    return data;
+}
+
+async function callPythonRegister(username, email, password) {
+    console.log('Sending POST request to Flask with username:', username, 'email:', email, 'password:', password);
+    const response = await fetch('http://127.0.0.1:5000/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username, email: email, password: password })
+    });
+    const data = await response.json();
+    console.log('Response from Flask:', data.result);
+    return data;
+}
