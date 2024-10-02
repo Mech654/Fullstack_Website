@@ -7,18 +7,6 @@
     <link rel="stylesheet" href="account.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
-    <style>
-        #hidden-image {
-            opacity: 0%;
-            transition: opacity 1s;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Ensure it stays in the background */
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -48,8 +36,12 @@
             <button type="submit" onclick="register()">Register</button>
         </form>
     </div>
-    <!-- Hidden Image -->
-    <img id="hidden-image" src="C:\Users\ahme1636\Downloads" alt="Hidden Image">
+    <div id="account" class="account" style="display: none;">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <p>Here are your account details:</p>
+        <p>Email: <span id="user-email"></span></p>
+        <!-- Add more account management details here -->
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

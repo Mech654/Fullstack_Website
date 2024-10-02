@@ -23,12 +23,13 @@ function login() {
     alert(`Logging in with Username: ${username} and Password: ${password}`);
     
     callPythonLogin(username, password).then(response => {
-        if (response.result !== 'success') {
+        if (response.result !== 'Success') {
             alert('Login failed. Please try again.');
             return;
         }
-        alert('Login successful!');
-        showHiddenImage();
+        localStorage.setItem('username', username); // Store username in localStorage
+        localStorage.setItem('password', password); // Store password in localStorage
+        window.location.href = 'Profile.html'; // Redirect to profile.html
     }).catch(error => {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
@@ -42,7 +43,7 @@ function register() {
     alert(`Registering with Username: ${username}, Email: ${email}, and Password: ${password}`);
     
     callPythonRegister(username, email, password).then(response => {
-        if (response.result !== 'success') {
+        if (response.result !== 'Success') {
             alert('Registration failed. Please try again.');
             return;
         }
@@ -53,9 +54,12 @@ function register() {
     });
 }
 
-function showHiddenImage() {
-    const hiddenImage = document.getElementById('hidden-image');
-    hiddenImage.style.opacity = '100%';
+function showAccount(user) {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('account').style.display = 'block';
+    document.getElementById('user-name').innerText = user.username;
+    document.getElementById('user-email').innerText = user.email;
 }
 
 async function callPythonLogin(username, password) {
@@ -84,4 +88,21 @@ async function callPythonRegister(username, email, password) {
     const data = await response.json();
     console.log('Response from Flask:', data.result);
     return data;
+}
+
+function fetchUserData(username) {
+    fetch(`http://127.0.0.1:5000/user/${username}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === 'Success') {
+                document.getElementById('user-name').innerText = data.user.username;
+                document.getElementById('user-email').innerText = data.user.email;
+            } else {
+                alert('Failed to fetch user data');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while fetching user data');
+        });
 }

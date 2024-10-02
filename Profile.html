@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="account.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .PP {
+            width: 350px;
+            height: 300px;
+            border-radius: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            width: 500%;
+            height: 30%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-top: -950px; /* Adjust this value to move the card higher */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MyWebsite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Overview</a></li>
+                <li class="nav-item"><a class="nav-link" href="buy.html">Buy</a></li>
+                <li class="nav-item"><a class="nav-link" href="chart.html">Chart</a></li>
+                <li class="nav-item active"><a class="nav-link" href="account.html">Account</a></li>
+            </ul>
+        </div>
+    </nav>
+    <img class="PP" src="ProfilePhoto.png">
+    <div class="container full-height d-flex align-items-center justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Welcome, <span id="user-name"></span>!</h2>
+                <p class="card-text">Here are your account details:</p>
+                <p class="card-text">Password: <span id="user-password"></span></p>
+                <p class="card-text">Email: <span id="user-email"></span></p>
+                <!-- Add more account management details here -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Retrieve the username and password from localStorage
+        const username = localStorage.getItem('username');
+        const password = localStorage.getItem('password');
+        if (username && password) {
+            fetchUserData(username);
+            document.getElementById('user-password').innerText = password;
+        } else {
+            alert('No username or password found. Please log in again.');
+            window.location.href = 'login.html'; // Redirect to login page if no username or password is found
+        }
+    </script>
+</body>
+</html>

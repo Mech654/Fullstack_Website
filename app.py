@@ -29,8 +29,16 @@ def put_in_table(username, email, password):
         conn.close()
     return None
 
-@app.route('/call-method', methods=['POST'])
-def call_method():
+def get_user_by_username(username):
+    conn = sqlite3.connect('example.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE username = ?", (username,))
+    user = c.fetchone()
+    conn.close()
+    return user
+
+@app.route('/register', methods=['POST'])
+def register():
     data = request.get_json()
     print('Received data:', data)
     username = data.get('username')
@@ -46,21 +54,25 @@ def call_method():
 
     return jsonify({'result': 'Success'})
 
-if __name__ == '__main__':
-    initialize_database()
-    app.run(debug=True)
-
-
+@app.route('/user/<username>', methods=['GET'])
+def get_user(username):
+    user = get_user_by_username(username)
+    if user:
+        user_data = {
+            'username': user[1],
+            'email': user[2]
+        }
+        return jsonify({'result': 'Success', 'user': user_data})
+    else:
+        return jsonify({'result': 'Error', 'message': 'User not found'}), 404
 
 def check_credentials(username, password):
     conn = sqlite3.connect('example.db')
     c = conn.cursor()
-    c.execute("SELECT password FROM users WHERE username = ?", (username,))
-    row = c.fetchone()
+    c.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
+    user = c.fetchone()
     conn.close()
-    if row and row[0] == password:
-        return True
-    return False
+    return user
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -72,7 +84,16 @@ def login():
     if not username or not password:
         return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
 
-    if check_credentials(username, password):
-        return jsonify({'result': 'Success'})
+    user = check_credentials(username, password)
+    if user:
+        user_data = {
+            'username': user[1],
+            'email': user[2]
+        }
+        return jsonify({'result': 'Success', 'user': user_data})
     else:
         return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 400
+
+if __name__ == '__main__':
+    initialize_database()
+    app.run(debug=True)
