@@ -104,3 +104,32 @@ if __name__ == '__main__':
 
 ##################################################################################################################################
 
+
+
+@app.route('/get_dictionary', methods=['GET'])
+def get_dictionary():
+    bob = get_all_products()
+    return jsonify(bob)
+    
+    
+
+
+
+def get_all_products():
+    conn = sqlite3.connect('example.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM products")
+    products = c.fetchall()
+    conn.close()
+    
+    products_list = []
+    for product in products:
+        product_data = {
+            'Product_ID': product[0],
+            'name': product[1],
+            'price': product[2],
+            'description': product[3]
+        }
+        products_list.append(product_data)
+    
+    return products_list

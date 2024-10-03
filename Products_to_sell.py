@@ -3,20 +3,18 @@ import sqlite3
 def add_product():
     name = input("Enter the product name: ")
     price = float(input("Enter the product price: "))
-    quantity = int(input("Enter the product quantity: "))
-    description = input("Enter the product description: ")
+    image_path = input("Enter the product image path: ")
 
     Product = {
         "name": name,
         "price": price,
-        "quantity": quantity,
-        "description": description
+        "image_path": image_path
     }
     
     return Product
 
 def add_in_database(Product):
-    conn = sqlite3.connect('products.db')
+    conn = sqlite3.connect('example.db')
     cursor = conn.cursor()
 
     cursor.execute('''
@@ -24,15 +22,14 @@ def add_in_database(Product):
             id INTEGER PRIMARY KEY,
             name TEXT,
             price REAL,
-            quantity INTEGER,
-            description TEXT
+            image_path TEXT
         )
     ''')
 
     cursor.execute('''
-        INSERT INTO products (name, price, quantity, description)
-        VALUES (?, ?, ?, ?)
-    ''', (Product['name'], Product['price'], Product['quantity'], Product['description']))
+        INSERT INTO products (name, price, image_path)
+        VALUES (?, ?, ?)
+    ''', (Product['name'], Product['price'], Product['image_path']))
 
     conn.commit()
     conn.close()
