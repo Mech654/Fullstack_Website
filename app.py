@@ -94,9 +94,6 @@ def login():
     else:
         return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 400
 
-if __name__ == '__main__':
-    initialize_database()
-    app.run(debug=True)
 
 
 
@@ -106,13 +103,12 @@ if __name__ == '__main__':
 
 
 
-@app.route('/get_dictionary', methods=['GET'])
+@app.route('/get_dictionary', methods=['POST'])
 def get_dictionary():
     bob = get_all_products()
     return jsonify(bob)
     
     
-
 
 
 def get_all_products():
@@ -128,8 +124,11 @@ def get_all_products():
             'Product_ID': product[0],
             'name': product[1],
             'price': product[2],
-            'description': product[3]
+            'image_path': product[3]
         }
         products_list.append(product_data)
-    
     return products_list
+    
+if __name__ == '__main__':
+    initialize_database()
+    app.run(debug=True)

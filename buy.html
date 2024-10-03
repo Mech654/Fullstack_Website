@@ -73,31 +73,36 @@
         // JavaScript to fetch and generate widgets from the database
         async function fetchWidgets() {
             try {
-                const response = await fetch('http://127.0.0.1:5000/get_dictionary'); // Replace with your actual API endpoint
+                const response = await fetch('http://127.0.0.1:5000/get_dictionary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    } // Replace with your actual API endpoint
+                });
                 const widgetData = await response.json();
 
                 const widgetContainer = document.getElementById('widgetContainer');
-
+                
                 widgetData.forEach(widget => {
                     const widgetCard = document.createElement('div');
                     widgetCard.className = 'widget-card';
                     widgetCard.innerHTML = `
-                        <img src="${widget.imageUrl}" alt="Widget Image">
+                        <img src="${widget.image_path}" alt="Widget Image">
                         <div class="widget-body">
                             <h5 class="widget-title">${widget.name}</h5>
-                            <p class="widget-text">${widget.price}</p>
+                            <p class="widget-text">${widget.price}€</p>
                             <a href="#" class="widget-button">Go somewhere</a>
                         </div>
                     `;
                     widgetContainer.appendChild(widgetCard);
                 });
+                
             } catch (error) {
                 console.error('Error fetching widget data:', error);
             }
         }
 
         fetchWidgets();
-    </script>
     </script>
 </body>
 </html>
