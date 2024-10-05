@@ -27,9 +27,9 @@ function login() {
             alert('Login failed. Please try again.');
             return;
         }
-        localStorage.setItem('username', username); // Store username in localStorage
-        localStorage.setItem('password', password); // Store password in localStorage
-        window.location.href = 'Profile.html'; // Redirect to profile.html
+        localStorage.setItem('username', username); 
+        localStorage.setItem('password', password); 
+        window.location.href = 'Profile.html'; 
     }).catch(error => {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
@@ -69,12 +69,13 @@ async function callPythonLogin(username, password) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username: username, password: password })
+        body: JSON.stringify({ 'username': username, 'password': password })
     });
     const data = await response.json();
     console.log('Response from Flask:', data.result);
     return data;
 }
+
 
 async function callPythonRegister(username, email, password) {
     console.log('Sending POST request to Flask with username:', username, 'email:', email, 'password:', password);
@@ -87,6 +88,13 @@ async function callPythonRegister(username, email, password) {
     });
     const data = await response.json();
     console.log('Response from Flask:', data.result);
+
+    if (data.result === 'Success') {
+        const userId = data.user_id; // Assuming the response contains a user_id field
+        console.log('user_id:', userId);
+        localStorage.setItem("user_id", userId);
+    }
+
     return data;
 }
 
@@ -106,3 +114,89 @@ function fetchUserData(username) {
             alert('An error occurred while fetching user data');
         });
 }
+
+async function sendOrderData(customer_id, product_name) {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/logicgate_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'customer_id': customer_id, 'product_name': product_name })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            console.log('Success:', data);
+           
+        } else {
+            console.error('Error:', data);
+           
+        }
+    } catch (error) {
+        console.error('Error:', error);
+
+    }
+}
+
+
+
+
+// JavaScript to fetch and generate widgets from the database
+let WidgetButtonID = {};
+async function fetchWidgets() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/get_dictionary', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            } // Replace with your actual API endpoint
+        });
+        const widgetData = await response.json();
+
+        const widgetContainer = document.getElementById('widgetContainer');
+        let WidgetID = 0;
+        widgetData.forEach(widget => {
+            const widgetCard = document.createElement('div');
+            widgetCard.className = 'widget-card';
+            widgetCard.innerHTML = `
+                <img src="${widget.image_path}" alt="Widget Image">
+                <div class="widget-body">
+                    <h5 class="widget-title">${widget.name}</h5>
+                    <p class="widget-text">${widget.price}€</p>
+                    <a href="#" data-Widgetid="${WidgetID}" class="widget-button">Add To Chart</a>
+                </div>
+            `;
+            widgetContainer.appendChild(widgetCard);
+            WidgetButtonID[WidgetID] = { name: widget.name };
+            WidgetID++;
+        });
+        
+    } catch (error) {
+        console.error('Error fetching widget data:', error);
+    }
+    document.querySelectorAll('.widget-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default anchor link behavior
+    
+            const widgetId = event.target.getAttribute('data-Widgetid');
+            
+            
+            AddItemToCart(widgetId);
+        });
+    });
+}
+
+
+function AddItemToCart(widgetId) {
+    let item = WidgetButtonID[widgetId].name;
+    if (item) {
+        user = localStorage.getItem('user_id');
+        sendOrderData(user, item);
+
+        
+    }
+}
+
+
+

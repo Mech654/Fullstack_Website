@@ -26,18 +26,33 @@
             margin-right: auto;
         }
         .card {
-            width: 500%;
-            height: 30%;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            max-width: 400px; /* Adjust the max width as needed */
             text-align: center;
-            margin-top: -950px; /* Adjust this value to move the card higher */
+        }
+        .container {
+            margin-top: -150px; /* Adjust the top margin as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full height of the viewport */
+        }
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-picture {
+            width: 300px; /* Adjust the size as needed */
+            height: 300px; /* Adjust the size as needed */
+            border-radius: 50%;
+            margin-bottom: 20px; /* Space between the picture and the card */
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MyWebsite</a>
+        <a class="navbar-brand" href="#">Account</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,22 +65,25 @@
             </ul>
         </div>
     </nav>
-    <img class="PP" src="ProfilePhoto.png">
-    <div class="container full-height d-flex align-items-center justify-content-center">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Welcome, <span id="user-name"></span>!</h2>
-                <p class="card-text">Here are your account details:</p>
-                <p class="card-text">Password: <span id="user-password"></span></p>
-                <p class="card-text">Email: <span id="user-email"></span></p>
-                <!-- Add more account management details here -->
+    <div class="container full-height">
+        <div class="profile-container">
+            <img src="imgs/ProfilePhoto.png" alt="Profile Picture" class="profile-picture">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Welcome, <span id="user-name"></span>!</h2>
+                    <p class="card-text">Here are your account details:</p>
+                    <p class="card-text">Email: <span id="user-email"></span></p>
+                    <p class="card-text">Password: <span id="user-password"></span></p>
+                    <!-- Add more account management details here -->
+                </div>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
     <script>
-        // Retrieve the username and password from localStorage
-        const username = localStorage.getItem('username');
+
+         // Retrieve the username and password from localStorage
+         const username = localStorage.getItem('username');
         const password = localStorage.getItem('password');
         if (username && password) {
             fetchUserData(username);
@@ -74,6 +92,7 @@
             alert('No username or password found. Please log in again.');
             window.location.href = 'login.html'; // Redirect to login page if no username or password is found
         }
+
     </script>
 </body>
 </html>

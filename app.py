@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
-
+from Orders import logicgate
 app = Flask(__name__)
 CORS(app)
 
@@ -23,11 +23,13 @@ def put_in_table(username, email, password):
         c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
                   (username, email, password))
         conn.commit()
+        user_id = c.lastrowid
+        
     except sqlite3.IntegrityError as e:
-        return str(e)
+        return str(e), None
     finally:
         conn.close()
-    return None
+    return user_id
 
 def get_user_by_username(username):
     conn = sqlite3.connect('example.db')
@@ -48,11 +50,13 @@ def register():
     if not username or not email or not password:
         return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
 
-    error = put_in_table(username, email, password)
-    if error:
-        return jsonify({'result': 'Error', 'message': error}), 400
+    User_id = put_in_table(username, email, password)
+    print(User_id)
 
-    return jsonify({'result': 'Success'})
+    if User_id is not None:
+        return jsonify({'result': 'Success', 'user_id': User_id})
+    else:
+        return jsonify({'result': 'Error', 'message': User_id}), 400
 
 @app.route('/user/<username>', methods=['GET'])
 def get_user(username):
@@ -80,11 +84,11 @@ def login():
     print('Received data:', data)
     username = data.get('username')
     password = data.get('password')
-
     if not username or not password:
         return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
 
     user = check_credentials(username, password)
+    print(user)
     if user:
         user_data = {
             'username': user[1],
@@ -114,10 +118,14 @@ def get_dictionary():
 def get_all_products():
     conn = sqlite3.connect('example.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM products")
+
+    # Only change: fetch products in random order
+    c.execute("SELECT * FROM products ORDER BY RANDOM()")
     products = c.fetchall()
+
     conn.close()
-    
+
+    # Everything else remains the same
     products_list = []
     for product in products:
         product_data = {
@@ -129,6 +137,39 @@ def get_all_products():
         products_list.append(product_data)
     return products_list
     
+
+
+##################################################################################################################################
+
+
+
+
+@app.route('/logicgate_route', methods=['POST'])
+def logicgate_route():
+    data = request.get_json()
+    user = data.get('customer_id')
+    product = data.get('product_name')
+
+  
+
+    if user is None or product is None:
+        print(user)
+        return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
+
+    print("hiiii")
+    try:
+        print("ok")
+        result = logicgate(user, product)
+        return jsonify({'result': 'Success', 'output': result})
+    except Exception as e:
+        return jsonify({'result': 'Error', 'message': str(e)}), 400
+
+
+
+
+
+
+
 if __name__ == '__main__':
     initialize_database()
     app.run(debug=True)
