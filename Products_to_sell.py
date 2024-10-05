@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def add_product():
     name = input("Enter the product name: ")
     price = float(input("Enter the product price: "))
@@ -34,5 +35,6 @@ def add_in_database(Product):
     conn.commit()
     conn.close()
 
-Product = add_product()
-add_in_database(Product)
+while True:
+    Product = add_product()
+    add_in_database(Product)
