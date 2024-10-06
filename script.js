@@ -17,6 +17,11 @@ function toggleForm(formType) {
     }
 }
 
+
+
+
+
+// Everything related to the account.html page //#################################################################  Profile.html
 function login() {
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
@@ -35,7 +40,13 @@ function login() {
         alert('An error occurred. Please try again.');
     });
 }
-
+function showAccount(user) {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('account').style.display = 'block';
+    document.getElementById('user-name').innerText = user.username;
+    document.getElementById('user-email').innerText = user.email;
+}
 function register() {
     const username = document.getElementById('register-username').value;
     const email = document.getElementById('register-email').value;
@@ -53,15 +64,6 @@ function register() {
         alert('An error occurred. Please try again.');
     });
 }
-
-function showAccount(user) {
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('register-form').style.display = 'none';
-    document.getElementById('account').style.display = 'block';
-    document.getElementById('user-name').innerText = user.username;
-    document.getElementById('user-email').innerText = user.email;
-}
-
 async function callPythonLogin(username, password) {
     console.log('Sending POST request to Flask with username:', username, 'password:', password);
     const response = await fetch('http://127.0.0.1:5000/login', {
@@ -75,7 +77,6 @@ async function callPythonLogin(username, password) {
     console.log('Response from Flask:', data.result);
     return data;
 }
-
 
 async function callPythonRegister(username, email, password) {
     console.log('Sending POST request to Flask with username:', username, 'email:', email, 'password:', password);
@@ -98,6 +99,8 @@ async function callPythonRegister(username, email, password) {
     return data;
 }
 
+// Everything related to the Profile.html page //#################################################################  Profile.html
+
 function fetchUserData(username) {
     fetch(`http://127.0.0.1:5000/user/${username}`)
         .then(response => response.json())
@@ -114,6 +117,15 @@ function fetchUserData(username) {
             alert('An error occurred while fetching user data');
         });
 }
+
+
+
+
+
+
+
+
+// Everything related to the buy.html page //#################################################################  buy.html
 
 async function sendOrderData(customer_id, product_name) {
     try {
@@ -139,18 +151,23 @@ async function sendOrderData(customer_id, product_name) {
     }
 }
 
-
-
-
+function AddItemToCart(widgetId) {
+    let item = WidgetButtonID[widgetId].name;
+    if (item) {
+        let user = localStorage.getItem('user_id');
+        sendOrderData(user, item);
+    }
+}
 // JavaScript to fetch and generate widgets from the database
 let WidgetButtonID = {};
 async function fetchWidgets() {
+    WidgetButtonID = {};
     try {
         const response = await fetch('http://127.0.0.1:5000/get_dictionary', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            } // Replace with your actual API endpoint
+            }
         });
         const widgetData = await response.json();
 
@@ -164,39 +181,23 @@ async function fetchWidgets() {
                 <div class="widget-body">
                     <h5 class="widget-title">${widget.name}</h5>
                     <p class="widget-text">${widget.price}€</p>
-                    <a href="#" data-Widgetid="${WidgetID}" class="widget-button">Add To Chart</a>
+                    <button type="button" data-Widgetid="${WidgetID}" class="widget-button">Add To Cart</button>
                 </div>
             `;
             widgetContainer.appendChild(widgetCard);
             WidgetButtonID[WidgetID] = { name: widget.name };
             WidgetID++;
         });
-        
+
     } catch (error) {
         console.error('Error fetching widget data:', error);
     }
+
     document.querySelectorAll('.widget-button').forEach(button => {
         button.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default anchor link behavior
-    
+            event.preventDefault(); // Prevent default behavior to avoid refresh
             const widgetId = event.target.getAttribute('data-Widgetid');
-            
-            
             AddItemToCart(widgetId);
         });
     });
 }
-
-
-function AddItemToCart(widgetId) {
-    let item = WidgetButtonID[widgetId].name;
-    if (item) {
-        user = localStorage.getItem('user_id');
-        sendOrderData(user, item);
-
-        
-    }
-}
-
-
-

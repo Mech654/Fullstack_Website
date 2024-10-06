@@ -57,6 +57,7 @@
     </style>
 </head>
 <body>
+
     <nav class="navbar">
         <ul>
             <li><a href="index.html">Overview</a></li>
@@ -71,8 +72,11 @@
     <script src="script.js"></script>
     <script>
         
-        fetchWidgets();
-        console.log('Widgets fetched');
+        if (!localStorage.getItem('widgets')) {
+            fetchWidgets();
+            localStorage.setItem('widgets', 'true');
+            console.log('Widgets fetched');
+        }
     </script>
 </body>
 </html>
