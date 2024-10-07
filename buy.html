@@ -23,7 +23,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            width: 300px; /* Adjusted width for a nicer rectangle */
+            width: 300px;
             text-align: center;
             font-family: 'Roboto', sans-serif;
             margin: 20px; /* Added margin for spacing */
@@ -54,6 +54,8 @@
         .widget-card .widget-button:hover {
             background-color: #0056b3;
         }
+        /* 
+        */
     </style>
 </head>
 <body>
@@ -71,12 +73,8 @@
     </div>
     <script src="script.js"></script>
     <script>
-        
-        if (!localStorage.getItem('widgets')) {
-            fetchWidgets();
-            localStorage.setItem('widgets', 'true');
-            console.log('Widgets fetched');
-        }
+        fetchWidgets();
+
     </script>
 </body>
 </html>

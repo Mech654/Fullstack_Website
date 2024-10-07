@@ -8,6 +8,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
 </head>
+<style>
+    .chart-container {
+        width: 800px;
+        height: 400px;
+        margin: 0 auto;
+    }
+
+    .item {
+        opacity: 100%;
+        width: 800px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px; /* Optional: adds rounded corners */
+        color: white; /* Optional: change text color for better contrast */
+    }
+
+    .paymentinfo {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background-color: wheat;
+        width: 800px;
+        height: 400px;
+        margin: 0 auto;
+        border-radius: 5px;
+        padding: 10px;
+        display: flex;
+    }
+
+    .catagory {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+    }
+</style>
+
+
+
 <body>
     <nav class="navbar">
         <ul>
@@ -17,5 +59,36 @@
             <li><a href="account.html">Account</a></li>
         </ul>
     </nav>
+    <div class="chart-container" id="myChart"></div>
+    <div id="paymentinfo" class="paymentinfo">
+        <div id="Order_amount" class="catagory">
+            <h3>Product_type_amount :</h3>
+        </div>
+        <div id="Total_quantity" class="catagory">
+            <h3> Total quantity:</h3>
+        </div>
+        <div id="Total_price" class="catagory">
+            <h3> Total price:</h3>
+        </div>
+    </div>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="chartScript.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        fetchItemForChart();
+    });
+</script>
 </html>

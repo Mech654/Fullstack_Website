@@ -95,8 +95,6 @@ def login():
             'email': user[2]
         }
         return jsonify({'result': 'Success', 'user': user_data})
-    else:
-        return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 400
 
 
 
@@ -153,18 +151,47 @@ def logicgate_route():
   
 
     if user is None or product is None:
-        print(user)
         return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
 
-    print("hiiii")
     try:
-        print("ok")
         result = logicgate(user, product)
         return jsonify({'result': 'Success', 'output': result})
     except Exception as e:
         return jsonify({'result': 'Error', 'message': str(e)}), 400
 
 
+##################################################################################################################################
+
+@app.route('/get_orders', methods=['POST'])
+def get_orders():
+    data = request.get_json()
+    user = data.get('customer_id')
+    if user is None:
+        return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
+
+    orders = get_orders_by_customer(user)
+    return jsonify({'result': 'Success', 'orders': orders})
+
+
+def get_orders_by_customer(customer_id):
+    conn = sqlite3.connect('example.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM orders WHERE customer_id = ?", (customer_id,))
+    orders = c.fetchall()
+    conn.close()
+
+    orders_list = []
+    for order in orders:
+        order_data = {
+            'Order_ID': order[0],
+            'customer_id': order[1],
+            'product_name': order[2],
+            'quantity': order[3],
+            'price': order[4],
+            'image_path': order[5]
+        }
+        orders_list.append(order_data)
+    return orders_list
 
 
 

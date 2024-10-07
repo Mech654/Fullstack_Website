@@ -75,6 +75,7 @@ async function callPythonLogin(username, password) {
     });
     const data = await response.json();
     console.log('Response from Flask:', data.result);
+    localStorage.setItem(data.get('user_id'));
     return data;
 }
 
@@ -156,48 +157,63 @@ function AddItemToCart(widgetId) {
     if (item) {
         let user = localStorage.getItem('user_id');
         sendOrderData(user, item);
+    
+
     }
 }
 // JavaScript to fetch and generate widgets from the database
 let WidgetButtonID = {};
-async function fetchWidgets() {
-    WidgetButtonID = {};
-    try {
-        const response = await fetch('http://127.0.0.1:5000/get_dictionary', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const widgetData = await response.json();
+let fetchWidget = "false";
 
-        const widgetContainer = document.getElementById('widgetContainer');
-        let WidgetID = 0;
-        widgetData.forEach(widget => {
-            const widgetCard = document.createElement('div');
-            widgetCard.className = 'widget-card';
-            widgetCard.innerHTML = `
+
+async function fetchWidgets() {
+    console.log('Fetching widgets...');
+    if (fetchWidget = "false") {
+        IsWidgetAlive = true;
+        WidgetButtonID = {};
+        try {
+            const response = await fetch('http://127.0.0.1:5000/get_dictionary', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const widgetData = await response.json();
+            
+            const widgetContainer = document.getElementById('widgetContainer');
+            let WidgetID = 0;
+            widgetData.forEach(widget => {
+                const widgetCard = document.createElement('div');
+                widgetCard.className = 'widget-card';
+                widgetCard.innerHTML = `
                 <img src="${widget.image_path}" alt="Widget Image">
                 <div class="widget-body">
-                    <h5 class="widget-title">${widget.name}</h5>
-                    <p class="widget-text">${widget.price}€</p>
-                    <button type="button" data-Widgetid="${WidgetID}" class="widget-button">Add To Cart</button>
+                <h5 class="widget-title">${widget.name}</h5>
+                <p class="widget-text">${widget.price}€</p>
+                <button data-Widgetid="${WidgetID}" class="widget-button">Add To Cart</button>
                 </div>
-            `;
-            widgetContainer.appendChild(widgetCard);
-            WidgetButtonID[WidgetID] = { name: widget.name };
-            WidgetID++;
+                `;
+                widgetContainer.appendChild(widgetCard);
+                WidgetButtonID[WidgetID] = { name: widget.name };
+                WidgetID++;
+            });
+            
+        } catch (error) {
+            console.error('Error fetching widget data:', error);
+        }
+        
+        document.querySelectorAll('.widget-button').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default behavior to avoid refresh
+                const widgetId = event.target.getAttribute('data-Widgetid');
+                AddItemToCart(widgetId);
+             
+            });
         });
-
-    } catch (error) {
-        console.error('Error fetching widget data:', error);
     }
-
-    document.querySelectorAll('.widget-button').forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default behavior to avoid refresh
-            const widgetId = event.target.getAttribute('data-Widgetid');
-            AddItemToCart(widgetId);
-        });
-    });
+    else {
+        console.log('Widgets already fetched');
+    }
 }
+
+
