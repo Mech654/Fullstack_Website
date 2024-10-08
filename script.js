@@ -82,7 +82,7 @@ async function callPythonRegister(username, email, password) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username: username, email: email, password: password })
+        body: JSON.stringify({ 'username': username, 'email': email, 'password': password })
     });
     const data = await response.json();
     console.log('Response from Flask:', data.result);
