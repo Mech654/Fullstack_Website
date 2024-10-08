@@ -16,23 +16,23 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.9'  # Specify a specific version
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install flask flask-cors
 
+      # Uncomment if you want to run tests
       # - name: Test application
       #   run: |
-      #     # Run your tests here
       #     pytest
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: Flask-app
-          path: .
+          path: .  # Adjust if your app files are in a subdirectory
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,5 +61,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'FreastyWeb'
-          package: .
+          package: .  # Adjust if necessary
           resource-group: 'Freasty_group'
