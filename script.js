@@ -17,10 +17,6 @@ function toggleForm(formType) {
     }
 }
 
-
-
-
-
 // Everything related to the account.html page //#################################################################  Profile.html
 function login() {
     const username = document.getElementById('login-username').value;
@@ -66,7 +62,7 @@ function register() {
 }
 async function callPythonLogin(username, password) {
     console.log('Sending POST request to Flask with username:', username, 'password:', password);
-    const response = await fetch('http://127.0.0.1:5000/login', {
+    const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -81,7 +77,7 @@ async function callPythonLogin(username, password) {
 
 async function callPythonRegister(username, email, password) {
     console.log('Sending POST request to Flask with username:', username, 'email:', email, 'password:', password);
-    const response = await fetch('http://127.0.0.1:5000/register', {
+    const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -103,7 +99,7 @@ async function callPythonRegister(username, email, password) {
 // Everything related to the Profile.html page //#################################################################  Profile.html
 
 function fetchUserData(username) {
-    fetch(`http://127.0.0.1:5000/user/${username}`)
+    fetch(`https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/user/${username}`)
         .then(response => response.json())
         .then(data => {
             if (data.result === 'Success') {
@@ -119,18 +115,11 @@ function fetchUserData(username) {
         });
 }
 
-
-
-
-
-
-
-
 // Everything related to the buy.html page //#################################################################  buy.html
 
 async function sendOrderData(customer_id, product_name) {
     try {
-        const response = await fetch('http://127.0.0.1:5000/logicgate_route', {
+        const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/logicgate_route', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -141,14 +130,11 @@ async function sendOrderData(customer_id, product_name) {
         const data = await response.json();
         if (response.ok) {
             console.log('Success:', data);
-           
         } else {
             console.error('Error:', data);
-           
         }
     } catch (error) {
         console.error('Error:', error);
-
     }
 }
 
@@ -157,14 +143,11 @@ function AddItemToCart(widgetId) {
     if (item) {
         let user = localStorage.getItem('user_id');
         sendOrderData(user, item);
-    
-
     }
 }
 // JavaScript to fetch and generate widgets from the database
 let WidgetButtonID = {};
 let fetchWidget = "false";
-
 
 async function fetchWidgets() {
     console.log('Fetching widgets...');
@@ -172,7 +155,7 @@ async function fetchWidgets() {
         IsWidgetAlive = true;
         WidgetButtonID = {};
         try {
-            const response = await fetch('http://127.0.0.1:5000/get_dictionary', {
+            const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/get_dictionary', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -197,7 +180,6 @@ async function fetchWidgets() {
                 WidgetButtonID[WidgetID] = { name: widget.name };
                 WidgetID++;
             });
-            
         } catch (error) {
             console.error('Error fetching widget data:', error);
         }
@@ -207,7 +189,6 @@ async function fetchWidgets() {
                 event.preventDefault(); // Prevent default behavior to avoid refresh
                 const widgetId = event.target.getAttribute('data-Widgetid');
                 AddItemToCart(widgetId);
-             
             });
         });
     }
@@ -215,5 +196,3 @@ async function fetchWidgets() {
         console.log('Widgets already fetched');
     }
 }
-
-

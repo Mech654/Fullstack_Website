@@ -19,9 +19,9 @@ def create_orders_table():
     print("Table 'orders' created successfully.")
 
 # Uncomment the following line to create the table once
-create_orders_table()
 
 def logicgate(customer_id, product_name):
+    create_orders_table()
     customer_id = int(customer_id)
     conn = sqlite3.connect('example.db')
     cursor = conn.cursor()

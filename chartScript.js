@@ -60,7 +60,7 @@ async function fetchItemData() {
             throw new Error('User ID not found in localStorage');
         }
 
-        const response = await fetch('http://127.0.0.1:5000/get_orders', {
+        const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/get_orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
