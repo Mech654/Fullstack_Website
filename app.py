@@ -56,7 +56,7 @@ def account():
 
 @app.route('/profile')
 def profile():
-    return render_template('Profile.html')
+    return render_template('profile.html')
 
 
 @app.route('/register', methods=['POST'])
