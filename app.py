@@ -48,7 +48,7 @@ def buy():
 
 @app.route('/chart')
 def chart():
-    return render_template('chart.html')  # Serve chart.html
+    return render_template('chart2.html')  # Serve chart.html
 
 @app.route('/account')
 def account():

@@ -44,7 +44,7 @@ function login() {
     .then(data => {
         if (data.result === 'Success') {
             localStorage.setItem('user_id', data.user.User_ID);
-            localStorage.setItem('username', username);
+            localStorage.setItem('username', username); 
             localStorage.setItem('email', data.user.email);
             localStorage.setItem('password', password);
             // Click the hidden link to redirect
