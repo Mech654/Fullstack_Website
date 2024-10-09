@@ -48,8 +48,8 @@ function login() {
         if (data.result === 'Success') {
             localStorage.setItem('user_id', data.user.User_ID);
             localStorage.setItem('username', data.user.username); // Optionally store username
-            // Redirect or update UI accordingly
-            alert("Login successful!"); // Optional success alert
+            // Redirect to Profile.html after successful login
+            window.location.href = 'Profile.html'; // Change this path if needed
         } else {
             console.error('Login failed:', data.message);
             alert(data.message); // Alert the user
@@ -60,6 +60,7 @@ function login() {
         alert(error.message); // Show error message to user
     });
 }
+
 
 function showAccount(user) {
     document.getElementById('login-form').style.display = 'none';

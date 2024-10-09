@@ -118,6 +118,8 @@ def login():
     else:
         return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 401
 
+        
+
 @app.route('/get_dictionary', methods=['POST'])
 def get_dictionary():
     bob = get_all_products()
