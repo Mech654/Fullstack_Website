@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import sqlite3
 from Orders import logicgate
@@ -40,7 +40,7 @@ def get_user_by_username(username):
 
 @app.route('/')
 def home():
-    return jsonify({'message': 'Welcome to the Flask app!'})
+    return send_from_directory('.', 'index.html')
 
 @app.route('/register', methods=['POST'])
 def register():
