@@ -62,19 +62,36 @@ function register() {
     });
 }
 
-async function callPythonLogin(username, password) {
-    console.log('Sending POST request to Flask with username:', username, 'password:', password);
-    const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/login', {
+function callPythonLogin() {
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    // Ensure you are capturing the data correctly
+    const loginData = {
+        username: username,
+        password: password
+    };
+
+    fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 'username': username, 'password': password })
+        body: JSON.stringify(loginData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Assuming the server returns a user_id in the response
+        if (data.user_id) {
+            localStorage.setItem('user_id', data.user_id); // Store user_id in localStorage
+            // Perform other actions (e.g., navigate to another page)
+        } else {
+            console.error('Login failed:', data.message); // Handle login failure
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error); // Handle fetch error
     });
-    const data = await response.json();
-    console.log('Response from Flask:', data.result);
-    localStorage.setItem(data.get('user_id'));
-    return data;
 }
 
 async function callPythonRegister(username, email, password) {
