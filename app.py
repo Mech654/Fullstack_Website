@@ -54,6 +54,10 @@ def chart():
 def account():
     return render_template('account.html')  # Serve account.html
 
+@app.route('/profile')
+def profile():
+    return render_template('Profile.html')
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -118,7 +122,7 @@ def login():
     else:
         return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 401
 
-        
+
 
 @app.route('/get_dictionary', methods=['POST'])
 def get_dictionary():

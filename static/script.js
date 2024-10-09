@@ -49,7 +49,7 @@ function login() {
             localStorage.setItem('user_id', data.user.User_ID);
             localStorage.setItem('username', data.user.username); // Optionally store username
             // Redirect to Profile.html after successful login
-            window.location.href = 'Profile.html'; // Change this path if needed
+            window.location.href = '/profile';
         } else {
             console.error('Login failed:', data.message);
             alert(data.message); // Alert the user
