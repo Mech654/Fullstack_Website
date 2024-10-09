@@ -17,7 +17,6 @@ function toggleForm(formType) {
     }
 }
 
-// Everything related to the account.html page //#################################################################  Profile.html
 function login() {
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
@@ -36,6 +35,7 @@ function login() {
         alert('An error occurred. Please try again.');
     });
 }
+
 function showAccount(user) {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('register-form').style.display = 'none';
@@ -43,6 +43,7 @@ function showAccount(user) {
     document.getElementById('user-name').innerText = user.username;
     document.getElementById('user-email').innerText = user.email;
 }
+
 function register() {
     const username = document.getElementById('register-username').value;
     const email = document.getElementById('register-email').value;
@@ -60,9 +61,10 @@ function register() {
         alert('An error occurred. Please try again.');
     });
 }
+
 async function callPythonLogin(username, password) {
     console.log('Sending POST request to Flask with username:', username, 'password:', password);
-    const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/login', {
+    const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -77,7 +79,7 @@ async function callPythonLogin(username, password) {
 
 async function callPythonRegister(username, email, password) {
     console.log('Sending POST request to Flask with username:', username, 'email:', email, 'password:', password);
-    const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/register', {
+    const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -96,10 +98,8 @@ async function callPythonRegister(username, email, password) {
     return data;
 }
 
-// Everything related to the Profile.html page //#################################################################  Profile.html
-
 function fetchUserData(username) {
-    fetch(`https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/user/${username}`)
+    fetch(`https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/user/${username}`)
         .then(response => response.json())
         .then(data => {
             if (data.result === 'Success') {
@@ -115,11 +115,9 @@ function fetchUserData(username) {
         });
 }
 
-// Everything related to the buy.html page //#################################################################  buy.html
-
 async function sendOrderData(customer_id, product_name) {
     try {
-        const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/logicgate_route', {
+        const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/logicgate_route', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -145,7 +143,7 @@ function AddItemToCart(widgetId) {
         sendOrderData(user, item);
     }
 }
-// JavaScript to fetch and generate widgets from the database
+
 let WidgetButtonID = {};
 let fetchWidget = "false";
 
@@ -155,7 +153,7 @@ async function fetchWidgets() {
         IsWidgetAlive = true;
         WidgetButtonID = {};
         try {
-            const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/get_dictionary', {
+            const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/get_dictionary', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -191,8 +189,7 @@ async function fetchWidgets() {
                 AddItemToCart(widgetId);
             });
         });
-    }
-    else {
+    } else {
         console.log('Widgets already fetched');
     }
 }
