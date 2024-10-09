@@ -3,93 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-        }
-        .full-height {
-            height: 100vh;
-        }
-        .PP {
-            width: 350px;
-            height: 300px;
-            border-radius: 50%;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .card {
-            width: 100%;
-            max-width: 400px; /* Adjust the max width as needed */
-            text-align: center;
-        }
-        .container {
-            margin-top: -150px; /* Adjust the top margin as needed */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Full height of the viewport */
-        }
-        .profile-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .profile-picture {
-            width: 300px; /* Adjust the size as needed */
-            height: 300px; /* Adjust the size as needed */
-            border-radius: 50%;
-            margin-bottom: 20px; /* Space between the picture and the card */
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Account</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Overview</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('buy') }}">Buy</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('chart') }}">Chart</a></li>
-                <li class="nav-item active"><a class="nav-link" href="{{ url_for('account') }}">Account</a></li>
-            </ul>
-        </div>
+    <nav>
+        <a href="{{ url_for('index') }}">Overview</a>
+        <a href="{{ url_for('buy') }}">Buy</a>
+        <a href="{{ url_for('chart') }}">Chart</a>
+        <a href="{{ url_for('account') }}">Account</a>
     </nav>
-    <div class="container full-height">
-        <div class="profile-container">
-            <img src="{{ url_for('static', filename='imgs/ProfilePhoto.png') }}" alt="Profile Picture" class="profile-picture">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">Welcome, <span id="user-name"></span>!</h2>
-                    <p class="card-text">Here are your account details:</p>
-                    <p class="card-text">Email: <span id="user-email"></span></p>
-                    <p class="card-text">Password: <span id="user-password"></span></p>
-                    <!-- Add more account management details here -->
-                </div>
-            </div>
-        </div>
+    
+    <div>
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <p>Email: <span id="user-email"></span></p>
+        <p>Password: <span id="user-password"></span></p>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
     <script>
          // Retrieve the username and password from localStorage
          const username = localStorage.getItem('username');
          const password = localStorage.getItem('password');
          if (username && password) {
-             fetchUserData(username);
+             document.getElementById('user-name').innerText = username;
              document.getElementById('user-password').innerText = password;
          } else {
              alert('No username or password found. Please log in again.');
-             window.location.href = 'login.html'; // Redirect to login page if no username or password is found
+             window.location.href = '{{ url_for("login") }}'; // Redirect to login page
          }
     </script>
 </body>
