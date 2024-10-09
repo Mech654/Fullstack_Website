@@ -34,30 +34,27 @@ function login() {
         body: JSON.stringify(loginData)
     })
     .then(response => {
-        // Check if the response is okay (status 200-299)
         if (!response.ok) {
-            // Attempt to extract the error message from the response
             return response.json().then(errorData => {
                 throw new Error(errorData.message || 'Login failed');
             });
         }
-        return response.json(); // Successfully received response, return JSON
+        return response.json();
     })
     .then(data => {
-        // Handle successful login
         if (data.result === 'Success') {
             localStorage.setItem('user_id', data.user.User_ID);
-            localStorage.setItem('username', data.user.username); // Optionally store username
-            // Redirect to Profile.html after successful login
-            window.location.href = '/profile';
+            localStorage.setItem('username', data.user.username);
+            // Redirect to the home page
+            window.location.href = homeUrl; // Use the global variable
         } else {
             console.error('Login failed:', data.message);
-            alert(data.message); // Alert the user
+            alert(data.message);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert(error.message); // Show error message to user
+        alert(error.message);
     });
 }
 
