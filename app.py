@@ -24,7 +24,6 @@ def put_in_table(username, email, password):
                   (username, email, password))
         conn.commit()
         user_id = c.lastrowid
-        
     except sqlite3.IntegrityError as e:
         return str(e), None
     finally:
@@ -38,6 +37,10 @@ def get_user_by_username(username):
     user = c.fetchone()
     conn.close()
     return user
+
+@app.route('/')
+def home():
+    return jsonify({'message': 'Welcome to the Flask app!'})
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -97,23 +100,11 @@ def login():
         }
         return jsonify({'result': 'Success', 'user': user_data})
 
-
-
-
-
-
-##################################################################################################################################
-
-
-
 @app.route('/get_dictionary', methods=['POST'])
 def get_dictionary():
     bob = get_all_products()
     return jsonify(bob)
     
-    
-
-
 def get_all_products():
     conn = sqlite3.connect('example.db')
     c = conn.cursor()
@@ -135,21 +126,12 @@ def get_all_products():
         }
         products_list.append(product_data)
     return products_list
-    
-
-
-##################################################################################################################################
-
-
-
 
 @app.route('/logicgate_route', methods=['POST'])
 def logicgate_route():
     data = request.get_json()
     user = data.get('customer_id')
     product = data.get('product_name')
-
-  
 
     if user is None or product is None:
         return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
@@ -160,9 +142,6 @@ def logicgate_route():
     except Exception as e:
         return jsonify({'result': 'Error', 'message': str(e)}), 400
 
-
-##################################################################################################################################
-
 @app.route('/get_orders', methods=['POST'])
 def get_orders():
     data = request.get_json()
@@ -172,7 +151,6 @@ def get_orders():
 
     orders = get_orders_by_customer(user)
     return jsonify({'result': 'Success', 'orders': orders})
-
 
 def get_orders_by_customer(customer_id):
     conn = sqlite3.connect('example.db')
@@ -194,10 +172,6 @@ def get_orders_by_customer(customer_id):
         orders_list.append(order_data)
     return orders_list
 
-
-
-
-
 if __name__ == '__main__':
     initialize_database()
-    app.run(debug=True)
+    # Remove app.run() for Azure deployment (handled by WSGI server like Gunicorn)
