@@ -59,4 +59,10 @@
             <h3>Total price:</h3>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='chartScript.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchItemForChart();  // Assuming this function is defined in chartScript.js
+        });
+    </script>
 </html>
