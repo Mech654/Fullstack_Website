@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto-generated Widgets</title>
-    <link rel="stylesheet" href="chart.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chart.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
     <style>
@@ -54,8 +54,6 @@
         .widget-card .widget-button:hover {
             background-color: #0056b3;
         }
-        /* 
-        */
     </style>
 </head>
 <body>
@@ -71,10 +69,10 @@
 
     <div style="background-color:#434343;" class="widget-container" id="widgetContainer">
     </div>
-    <script src="script.js"></script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script>
         fetchWidgets();
-
     </script>
 </body>
 </html>
