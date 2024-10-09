@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Overview</a></li>
-            <li><a href="buy.html">Buy</a></li>
-            <li><a href="chart.html">Chart</a></li>
-            <li><a href="account.html">Account</a></li>
+            <li><a href="{{ url_for('home') }}">Overview</a></li>
+            <li><a href="{{ url_for('buy') }}">Buy</a></li>
+            <li><a href="{{ url_for('chart') }}">Chart</a></li>
+            <li><a href="{{ url_for('account') }}">Account</a></li>
         </ul>
     </nav>
     <div class="welcome-text">
         <h1>Welcome to the land of <br> Fresh & Cheap Taste!</h1>
         <div class="image-container">
-            <img src="imgs\image-removebg-preview.png" alt="Centered Image">
+            <img src="{{ url_for('static', filename='imgs\image-removebg-preview.png') }}" alt="Description of the image">
         </div>
         <p>
             Welcome to Fresh, Cheap, and Tasty—where American desperation and dark choices have become our daily specials. We’ve managed to stay open this long by doing what we had to do, but time is running out. And now, we need your help. Not just for us, but for your own sake.</p>

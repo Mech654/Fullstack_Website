@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 from Orders import logicgate
@@ -40,7 +40,20 @@ def get_user_by_username(username):
 
 @app.route('/')
 def home():
-    return send_from_directory('.', 'index.html')
+    return render_template('index.html')
+
+@app.route('/buy')
+def buy():
+    return render_template('buy.html')  # Serve buy.html
+
+@app.route('/chart')
+def chart():
+    return render_template('chart.html')  # Serve chart.html
+
+@app.route('/account')
+def account():
+    return render_template('account.html')  # Serve account.html
+
 
 @app.route('/register', methods=['POST'])
 def register():
