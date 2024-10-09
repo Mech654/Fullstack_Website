@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='chart.css') }}">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='chart.css') }}">  -->
+
     <title>Basic HTML Website</title>
     <style>
         .chart-container {
@@ -47,12 +48,15 @@
 </head>
 <body>
     <nav class="navbar">
+        <!--
         <ul>
             <li><a href="{{ url_for('index') }}">Overview</a></li>
             <li><a href="{{ url_for('buy') }}">Buy</a></li>
             <li><a href="{{ url_for('chart') }}">Chart</a></li>
             <li><a href="{{ url_for('account') }}">Account</a></li>
+            
         </ul>
+        -->
     </nav>
     
     <div class="chart-container" id="myChart"></div>
@@ -68,12 +72,14 @@
             <h3>Total price:</h3>
         </div>
     </div>
-
-    <script src="{{ url_for('static', filename='chartScript.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchItemForChart();  // Assuming this function is defined in chartScript.js
-        });
-    </script>
-</body>
+    
+    <!--
+        <script src="{{ url_for('static', filename='chartScript.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchItemForChart();  // Assuming this function is defined in chartScript.js
+            });
+        </script>
+    </body>
+    -->
 </html>
