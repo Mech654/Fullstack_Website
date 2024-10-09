@@ -75,9 +75,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{ url_for('home') }}">Overview</a></li>
+                    <li><a href="{{ url_for('buy') }}">Buy</a></li>
+                    <li><a href="{{ url_for('chart') }}">Chart</a></li>
+                    <li><a href="{{ url_for('account') }}">Account</a></li>
                 </ul>
             </nav>
         </div>
