@@ -45,16 +45,16 @@ function login() {
         if (data.result === 'Success') {
             localStorage.setItem('user_id', data.user.User_ID);
             localStorage.setItem('username', data.user.username);
-            // Redirect to the home page
-            window.location.href = homeUrl; // Use the global variable
+            // Click the hidden link to redirect
+            document.getElementById('redirect-link').click(); // Simulate a click
         } else {
             console.error('Login failed:', data.message);
-            alert(data.message);
+            alert(data.message); // Alert the user
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert(error.message);
+        alert(error.message); // Show error message to user
     });
 }
 
