@@ -85,9 +85,22 @@
     <div class="container">
         <div class="profile">
             <img src="https://via.placeholder.com/150" alt="Profile Picture">
-            <h2>John Doe</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque leo nec magna fermentum, a tincidunt nisi facilisis. Integer nec odio nec urna fermentum tincidunt.</p>
+            <h2 id="name"></h2>
+            <p id="email"></p>
+            <p id="password"></p>
         </div>
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const name = localStorage.getItem('name') || 'John Doe';
+        const email = localStorage.getItem('email') || 'john.doe@example.com';
+        const password = localStorage.getItem('password') || '********';
+
+        document.getElementById('name').textContent = `Name: ${name}`;
+        document.getElementById('email').textContent = `Email: ${email}`;
+        document.getElementById('password').textContent = `Password: ${password}`;
+    });
+</script>
 </html>

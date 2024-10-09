@@ -45,6 +45,8 @@ function login() {
         if (data.result === 'Success') {
             localStorage.setItem('user_id', data.user.User_ID);
             localStorage.setItem('username', data.user.username);
+            localStorage.setItem('email', data.user.email);
+            localStorage.setItem('password', data.user.password);
             // Click the hidden link to redirect
             document.getElementById('redirect-link').click(); // Simulate a click
         } else {
