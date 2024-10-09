@@ -20,19 +20,44 @@ function toggleForm(formType) {
 function login() {
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
-    alert(`Logging in with Username: ${username} and Password: ${password}`);
-    
-    callPythonLogin(username, password).then(response => {
-        if (response.result !== 'Success') {
-            alert('Login failed. Please try again.');
-            return;
+
+    const loginData = {
+        username: username,
+        password: password
+    };
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+    })
+    .then(response => {
+        // Check if the response is okay (status 200-299)
+        if (!response.ok) {
+            // Attempt to extract the error message from the response
+            return response.json().then(errorData => {
+                throw new Error(errorData.message || 'Login failed');
+            });
         }
-        localStorage.setItem('username', username); 
-        localStorage.setItem('password', password); 
-        window.location.href = 'Profile.html'; 
-    }).catch(error => {
+        return response.json(); // Successfully received response, return JSON
+    })
+    .then(data => {
+        // Handle successful login
+        if (data.result === 'Success') {
+            localStorage.setItem('user_id', data.user.User_ID);
+            localStorage.setItem('username', data.user.username); // Optionally store username
+            // Redirect or update UI accordingly
+            alert("Login successful!"); // Optional success alert
+        } else {
+            console.error('Login failed:', data.message);
+            alert(data.message); // Alert the user
+        }
+    })
+    .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        alert(error.message); // Show error message to user
     });
 }
 

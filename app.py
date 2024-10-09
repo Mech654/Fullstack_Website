@@ -102,13 +102,12 @@ def login():
     
     username = data.get('username')
     password = data.get('password')
-
+    
     if not username or not password:
         return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
 
     user = check_credentials(username, password)
-    print(user)
-
+    
     if user:
         user_data = {
             'User_ID': user[0],
@@ -116,9 +115,8 @@ def login():
             'email': user[2]
         }
         return jsonify({'result': 'Success', 'user': user_data})
-
-    return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 401
-
+    else:
+        return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 401
 
 @app.route('/get_dictionary', methods=['POST'])
 def get_dictionary():
