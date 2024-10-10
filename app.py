@@ -2,8 +2,11 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 from Orders import logicgate
+
 app = Flask(__name__)
-CORS(app)
+
+# Allow CORS for specific origin
+CORS(app, resources={r"/*": {"origins": "https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net"}})
 
 def initialize_database():
     conn = sqlite3.connect('example.db')
@@ -58,7 +61,6 @@ def account():
 def profile():
     return render_template('profile2.html')
 
-
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -98,7 +100,6 @@ def check_credentials(username, password):
     conn.close()
     return user
 
-
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -121,8 +122,6 @@ def login():
         return jsonify({'result': 'Success', 'user': user_data})
     else:
         return jsonify({'result': 'Error', 'message': 'Invalid credentials'}), 401
-
-
 
 @app.route('/get_dictionary', methods=['POST'])
 def get_dictionary():
