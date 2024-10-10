@@ -8,6 +8,10 @@ app = Flask(__name__)
 # Allow CORS for specific origin
 CORS(app, resources={r"/*": {"origins": "https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net"}})
 
+
+def deleteLatter():
+    print("Hello World")
+    
 def initialize_database():
     conn = sqlite3.connect('example.db')
     c = conn.cursor()
