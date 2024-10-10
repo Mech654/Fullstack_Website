@@ -4,6 +4,9 @@ let total_quantity = 0;
 let total_price = 0;
 
 async function fetchItemForChart() {
+    total_type = 0;
+    total_quantity = 0;
+    total_price = 0;
     const arrayy = await fetchItemData();
 
     // Clear existing items to avoid duplication
@@ -60,7 +63,7 @@ async function fetchItemData() {
             throw new Error('User ID not found in localStorage');
         }
 
-        const response = await fetch('https://freastyweb-hwcqdtfahvdta0cw.canadacentral-01.azurewebsites.net/get_orders', {
+        const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/get_orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
