@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <style>
         .chart-container {
+            margin-top: 500px;
             width: 800px;
             height: 400px;
-            margin: 0 auto;
+            margin: 20px auto;
+            min-height: 400px; /* Ensure enough space for the chart */
         }
-
         .item {
             opacity: 100%;
             width: 800px;
@@ -19,22 +20,21 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            margin-top: 100px;
             padding: 10px;
             border-radius: 5px;
             color: white;
         }
         .paymentinfo {
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            background-color: wheat;
+            background-color: #e3c282;
             width: 800px;
             height: 400px;
-            margin: 2em auto; /* Add margin to push it down */
+            margin: 500px auto; /* Increase margin to push it down */
             border-radius: 5px;
             padding: 10px;
             display: flex;
         }
-
-
         .catagory {
             width: 200px;
             height: 200px;
@@ -42,6 +42,35 @@
             padding: 10px;
             border-radius: 5px;
             background-color: wheat;
+        }
+
+        /* Button styles */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            padding: 0 20px; /* Smaller padding for better visibility */
+            box-sizing: border-box; /* Ensure padding is considered in the width */
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 180px; /* Ensures both buttons are of equal size */
+        }
+
+        .proceed-btn {
+            background-color: #0066cc; /* Cool blue for attention */
+        }
+
+        .continue-btn {
+            background-color: #f4a261; /* Soft orange */
         }
     </style>
 </head>
@@ -53,24 +82,30 @@
             <li><a href="{{ url_for('chart') }}">Chart</a></li>
             <li><a href="{{ url_for('account') }}">Account</a></li>
         </ul>
-    </nav>    
+    </nav>
+    <br><br><br>
+  
     <div class="chart-container" id="myChart"></div>
-    
-    <div id="paymentinfo" class="paymentinfo">
-        <div id="Order_amount" class="catagory">
-            <h3>Product_type_amount :</h3>
-        </div>
-        <div id="Total_quantity" class="catagory">
-            <h3>Total quantity:</h3>
-        </div>
-        <div id="Total_price" class="catagory">
-            <h3>Total price:</h3>
-        </div>
+
+    <br><br><br>
+
+
+    <!-- Button container at the bottom -->
+    <div class="button-container">
+        <button class="button continue-btn" onclick="continueShopping()">Continue Shopping</button>
+        <button class="button proceed-btn" onclick="proceedCheckout()">Proceed</button>
     </div>
     <script src="{{ url_for('static', filename='chartScript.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetchItemForChart();  // Assuming this function is defined in chartScript.js
         });
+        function continueShopping() {
+            alert('Continuing shopping!');
+        }
+
+        function proceedCheckout() {
+            alert('Proceeding to checkout!');
+        }
     </script>
 </html>
