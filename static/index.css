@@ -1,12 +1,6 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-}
-
 .navbar {
     text-align: center;
-    background-color:#0d9100;
+    background-color: #0d9100;
     padding: 1em 0;
     position: fixed;
     top: 0;
@@ -28,7 +22,7 @@ html, body {
 
 .navbar a {
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 2.5em; /* Increased font size */
     color: #ffffff;
 }
 
@@ -38,39 +32,4 @@ html, body {
 
 body {
     padding-top: 4em;
-}
-
-.image-container {
-    text-align: center;
-    margin-top: 2em;
-}
-
-.image-container img {
-    max-width: 100%;
-    height: auto;
-}
-
-.welcome-text {
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    color: #32cb00;
-    margin: 2em auto;
-    max-width: 800px;
-    padding: 1em;
-    background-color: #ffffff;
-    border-radius: 10px;
-}
-
-.welcome-text h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3em;
-    margin-bottom: 0.5em;
-    font-weight: 100;
-}
-
-.welcome-text p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
-    line-height: 1.5em;
-    margin-bottom: 1em;
 }

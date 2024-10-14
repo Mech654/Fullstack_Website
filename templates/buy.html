@@ -4,57 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto-generated Widgets</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='chart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='buy.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://www.dafont.com/hanging-letters.font" rel="stylesheet">
-    <style>
-        /* Widget CSS */
-        .widget-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background-color: #f7f7f7;
-        }
-        .widget-card {
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 300px;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            margin: 20px; /* Added margin for spacing */
-        }
-        .widget-card img {
-            height: 200px;
-            width: 100%;    
-            object-fit: contain;
-        }
-        .widget-card .widget-title {
-            font-size: 1.5rem;
-            margin: 10px 0;
-        }
-        .widget-card .widget-text {
-            font-size: 1rem;
-            color: #666;
-        }
-        .widget-card .widget-button {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .widget-card .widget-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
 
@@ -67,7 +19,7 @@
         </ul>
     </nav>
 
-    <div style="background-color:#434343;" class="widget-container" id="widgetContainer">
+    <div class="widget-container" id="widgetContainer">
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
