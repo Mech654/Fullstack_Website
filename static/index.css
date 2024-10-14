@@ -10,6 +10,7 @@ html, body {
     padding: 1em 0;
     position: fixed;
     top: 0;
+    height: 30px;
     width: 100%;
     z-index: 1000;
 }
@@ -28,11 +29,11 @@ html, body {
 .navbar a {
     text-decoration: none;
     font-size: 1.5em;
-    color: #006201;
+    color: #ffffff;
 }
 
 .navbar a:hover {
-    color: #006201;
+    color: #ffffff;
 }
 
 body {
