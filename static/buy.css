@@ -1,14 +1,12 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; /* Updated background color */
-    color: #333333; /* Updated text color */
-    font-family: Arial, sans-serif; /* Updated font family */
+    background-color: #434343;
 }
 
 .navbar {
     text-align: center;
-    background-color: #004d99; /* Updated navbar background color */
+    background-color: #000;
     padding: 1em 0;
     position: fixed;
     top: 0;
@@ -29,66 +27,49 @@ html, body {
 
 .navbar a {
     text-decoration: none;
-    font-size: 2.5em; /* Increased font size */
-    color: #ffffff;
+    font-size: 1.5em;
+    color: #fff;
 }
 
 .navbar a:hover {
-    color: #ffcc00; /* Updated hover color */
+    color: #ccc;
 }
 
 body {
     padding-top: 4em;
 }
 
-.widget-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: #f7f7f7;
+.image-container {
+    text-align: center;
+    margin-top: 2em;
 }
 
-.widget-card {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 300px;
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.welcome-text {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    margin: 20px; /* Added margin for spacing */
-}
-
-.widget-card img {
-    height: 200px;
-    width: 100%;    
-    object-fit: contain;
-}
-
-.widget-card .widget-title {
-    font-size: 1.5rem;
-    margin: 10px 0;
-}
-
-.widget-card .widget-text {
-    font-size: 1rem;
-    color: #666;
-}
-
-.widget-card .widget-button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #007bff;
     color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    margin: 2em auto;
+    max-width: 800px;
+    padding: 1em;
+    background-color: #434343;
+    border-radius: 10px;
 }
 
-.widget-card .widget-button:hover {
-    background-color: #0056b3;
+.welcome-text h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    font-weight: 100;
+}
+
+.welcome-text p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 1em;
 }
