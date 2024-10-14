@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic HTML Website</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='chart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <style>
         .chart-container {
             width: 800px;
@@ -45,7 +45,15 @@
         }
     </style>
 </head>
-<body>    
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Overview</a></li>
+            <li><a href="{{ url_for('buy') }}">Buy</a></li>
+            <li><a href="{{ url_for('chart') }}">Chart</a></li>
+            <li><a href="{{ url_for('account') }}">Account</a></li>
+        </ul>
+    </nav>    
     <div class="chart-container" id="myChart"></div>
     
     <div id="paymentinfo" class="paymentinfo">
