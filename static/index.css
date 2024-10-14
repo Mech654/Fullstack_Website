@@ -1,12 +1,12 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #4be64c;
+    background-color: #ffffff;
 }
 
 .navbar {
     text-align: center;
-    background-color: #5dc513;
+    background-color:#0d9100;
     padding: 1em 0;
     position: fixed;
     top: 0;
@@ -52,7 +52,7 @@ body {
 .welcome-text {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    color: #0d9100;
+    color: #32cb00;
     margin: 2em auto;
     max-width: 800px;
     padding: 1em;
