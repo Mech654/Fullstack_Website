@@ -1,12 +1,12 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #434343;
+    background-color: #4be64c;
 }
 
 .navbar {
     text-align: center;
-    background-color: #000;
+    background-color: #5dc513;
     padding: 1em 0;
     position: fixed;
     top: 0;
@@ -28,11 +28,11 @@ html, body {
 .navbar a {
     text-decoration: none;
     font-size: 1.5em;
-    color: #fff;
+    color: #006201;
 }
 
 .navbar a:hover {
-    color: #ccc;
+    color: #006201;
 }
 
 body {
@@ -52,11 +52,11 @@ body {
 .welcome-text {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    color: #fff;
+    color: #0d9100;
     margin: 2em auto;
     max-width: 800px;
     padding: 1em;
-    background-color: #434343;
+    background-color: #4be64c;
     border-radius: 10px;
 }
 
