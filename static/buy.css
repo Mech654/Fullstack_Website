@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
-    background-image: url("{{ url_for('static', filename='imgs\Supermarket.jpg') }}");
+    background-image: url("/static/imgs/Supermarket.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
