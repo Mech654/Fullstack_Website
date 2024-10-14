@@ -1,15 +1,16 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #434343;
+    background-color: #ffffff;
 }
 
 .navbar {
     text-align: center;
-    background-color: #000;
+    background-color:#0d9100;
     padding: 1em 0;
     position: fixed;
     top: 0;
+    height: 45px;
     width: 100%;
     z-index: 1000;
 }
@@ -27,12 +28,12 @@ html, body {
 
 .navbar a {
     text-decoration: none;
-    font-size: 1.5em;
-    color: #fff;
+    font-size: 2.5em;
+    color: #ffffff;
 }
 
 .navbar a:hover {
-    color: #ccc;
+    color: #ffffff;
 }
 
 body {
@@ -52,11 +53,11 @@ body {
 .welcome-text {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    color: #fff;
+    color: #32cb00;
     margin: 2em auto;
     max-width: 800px;
     padding: 1em;
-    background-color: #434343;
+    background-color: #ffffff;
     border-radius: 10px;
 }
 
