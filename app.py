@@ -201,4 +201,3 @@ def get_orders_by_customer(customer_id):
 
 if __name__ == '__main__':
     initialize_database()
-    # Remove app.run() for Azure deployment (handled by WSGI server like Gunicorn)

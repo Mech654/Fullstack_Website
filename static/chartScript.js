@@ -8,31 +8,26 @@ async function fetchItemForChart() {
     total_quantity = 0;
     total_price = 0;
     const arrayy = await fetchItemData();
-
-    // Clear existing items to avoid duplication
     ChartItems.innerHTML = '';
-
     if (arrayy && arrayy.result === 'Success' && Array.isArray(arrayy.orders)) {
-        total_type = arrayy.orders.length; // Update total_type based on the number of orders
+        total_type = arrayy.orders.length;
         arrayy.orders.forEach((item) => {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'item';
-            itemDiv.style.display = 'flex'; // Use flexbox for horizontal alignment
-            itemDiv.style.alignItems = 'center'; // Center items vertically
+            itemDiv.style.display = 'flex';
+            itemDiv.style.alignItems = 'center';
             itemDiv.style.marginTop = '20px';
-            itemDiv.style.marginBottom = '10px'; // Add space between items
-            itemDiv.style.padding = '10px'; // Add padding inside each item div
-            itemDiv.style.backgroundColor = `#3980d5`; // Dark blue background color
+            itemDiv.style.marginBottom = '10px';
+            itemDiv.style.padding = '10px';
+            itemDiv.style.backgroundColor = `#3980d5`;
 
-            // Add an image element for the product
             const imgElement = document.createElement('img');
-            imgElement.src = item.image_path; // Use the image path from the data
+            imgElement.src = item.image_path;
             imgElement.alt = `Image for ${item.product_name}`;
-            imgElement.style.width = '50px'; // Set image width (adjust as needed)
-            imgElement.style.height = '50px'; // Set image height (adjust as needed)
-            imgElement.style.marginRight = '10px'; // Space between the image and text
+            imgElement.style.width = '50px';
+            imgElement.style.height = '50px';
+            imgElement.style.marginRight = '10px';
 
-            // Create the inner HTML for text content
             itemDiv.innerHTML = `
                 <p style="margin: 0 10px;">Product Name: ${item.product_name}</p>
                 <p style="margin: 0 10px;">Quantity: ${item.quantity}</p>
@@ -40,22 +35,20 @@ async function fetchItemForChart() {
                 <p style="margin: 0 10px;">Order ID: ${item.Order_ID}</p>
             `;
 
-            // Insert the image at the beginning of the div
             itemDiv.prepend(imgElement);
             ChartItems.appendChild(itemDiv);
 
-            // Accumulate total quantity and price
             total_quantity += item.quantity;
             total_price += (item.price * item.quantity);
         });
 
         const itemDiv = document.createElement('div');
         itemDiv.className = 'paymenttotal';
-        itemDiv.style.display = 'flex'; // Use flexbox for horizontal alignment
+        itemDiv.style.display = 'flex';
         itemDiv.style.padding = '30px';
         itemDiv.style.marginTop = '40px';
         itemDiv.style.backgroundColor = `wheat`;
-        itemDiv.style.alignItems = 'center'; // Center items vertically
+        itemDiv.style.alignItems = 'center';
         itemDiv.innerHTML = `
             <p style="margin: 0 10px;">Total types: ${total_type}</p>
             <p style="margin: 0 10px;">Total quantity: ${total_quantity}</p>
@@ -64,17 +57,14 @@ async function fetchItemForChart() {
 
         ChartItems.appendChild(itemDiv);
 
-        // Add an extra invisible div for spacing at the end
         const invisibleDiv = document.createElement('div');
-        invisibleDiv.style.height = '100px'; // Adjust height for the needed space
-        invisibleDiv.style.opacity = '0'; // Invisible
+        invisibleDiv.style.height = '100px';
+        invisibleDiv.style.opacity = '0';
         ChartItems.appendChild(invisibleDiv);
-
     } else {
         console.error('No items found in the fetched data.');
     }
 
-    // Update the information displayed
     info();
 }
 
@@ -85,7 +75,6 @@ async function fetchItemData() {
         if (!userId) {
             throw new Error('User ID not found in localStorage');
         }
-
         const response = await fetch('https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/get_orders', {
             method: 'POST',
             headers: {
@@ -93,7 +82,6 @@ async function fetchItemData() {
             },
             body: JSON.stringify({ 'customer_id': userId })
         });
-
         itemData = await response.json();
     } catch (error) {
         console.error('Error fetching items:', error);
@@ -102,21 +90,10 @@ async function fetchItemData() {
     return itemData;
 }
 
-// A function to put the data into the payment info div
 function info() {
-    document.getElementById('Order_amount').innerHTML = `
-        Total types: ${total_type} <br>
-        
-        `;
-        document.getElementById('total_quantity').innerHTML = `
-        Total quantity: ${total_quantity} <br>
-        `;
-        
-        document.getElementById('total_price').innerHTML = `
-        
-        Total price: $${total_price.toFixed(2)} <br>
-    `;
+    document.getElementById('Order_amount').innerHTML = `Total types: ${total_type} <br>`;
+    document.getElementById('total_quantity').innerHTML = `Total quantity: ${total_quantity} <br>`;
+    document.getElementById('total_price').innerHTML = `Total price: $${total_price.toFixed(2)} <br>`;
 }
 
-// Fetch and render chart data on page load
 fetchItemForChart();
