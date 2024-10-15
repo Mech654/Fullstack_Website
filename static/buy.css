@@ -11,6 +11,7 @@ html, body {
 
 body {
     padding-top: 4em;
+    overflow: hidden;
 }
 
 .navbar {
@@ -46,6 +47,7 @@ body {
 }
 
 .widget-container {
+    
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -53,6 +55,7 @@ body {
     gap: 20px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    overflow-y: auto;
 }
 
 .widget-card {
