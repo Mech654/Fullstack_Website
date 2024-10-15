@@ -93,7 +93,6 @@ async function fetchItemData() {
 function info() {
     document.getElementById('Order_amount').innerHTML = `Total types: ${total_type} <br>`;
     document.getElementById('total_quantity').innerHTML = `Total quantity: ${total_quantity} <br>`;
-    document.getElementById('total_price').innerHTML = `Total price: $${total_price.toFixed(2)} <br>`;
+    document.getElementById('total_price').innerHTML = `Total price: $${(total_price).toFixed(2)} <br>`;
 }
 
-fetchItemForChart();
