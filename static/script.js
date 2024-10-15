@@ -182,7 +182,7 @@ function AddItemToCart(widgetId) {
     let item = WidgetButtonID[widgetId].name;
     if (item) {
         let user = localStorage.getItem('user_id');
-        sendOrderData(user, item);
+        user ? sendOrderData(user, item) : alert('Please login to add items to cart');
     }
 }
 
