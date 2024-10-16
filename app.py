@@ -73,8 +73,8 @@ def download():
 
 
 # Route to serve the .db file
-@app.route('/download')
-def download_db():
+@app.route('/download/x')
+def y():
     return send_from_directory(directory='..', path='example.db', as_attachment=True, attachment_filename='CustomDatabaseName.db')
 
 @app.route('/register', methods=['POST'])
