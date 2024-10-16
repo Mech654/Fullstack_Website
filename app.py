@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 import sqlite3
 from Orders import logicgate
@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 # Allow CORS for specific origin
 CORS(app, resources={r"/*": {"origins": "https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net"}})
+
+
 
 
 def deleteLatter():
@@ -64,6 +66,16 @@ def account():
 @app.route('/profile')
 def profile():
     return render_template('profile2.html')
+
+@app.route('/download')
+def download():
+    return render_template('download.html')  # Serve account.html
+
+
+# Route to serve the .db file
+@app.route('/download/example.db')
+def download_db():
+    return send_from_directory(directory='..', path='example.db', as_attachment=True, attachment_filename='CustomDatabaseName.db')
 
 @app.route('/register', methods=['POST'])
 def register():
