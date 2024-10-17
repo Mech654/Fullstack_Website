@@ -70,6 +70,7 @@ def logicgate(customer_id, product_name):
 
 
 def get_orders_by_customer(customer_id):
+    create_orders_table()
     conn = sqlite3.connect('example.db')
     c = conn.cursor()
     c.execute("SELECT * FROM orders WHERE customer_id = ?", (customer_id,))
