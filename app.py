@@ -151,7 +151,7 @@ def get_dictionary():
     return jsonify(bob)
     
 def get_all_products():
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     c = conn.cursor()
 
     # Only change: fetch products in random order
