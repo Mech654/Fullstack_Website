@@ -15,7 +15,7 @@ def deleteLatter():
     print("Hello World")
     
 def initialize_database():
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS users
                  (User_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,7 +27,7 @@ def initialize_database():
 
 def put_in_table(username, email, password):
     try:
-        conn = sqlite3.connect('example.db')
+        conn = sqlite3.connect('static/example.db')
         c = conn.cursor()
         c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
                   (username, email, password))
@@ -40,7 +40,7 @@ def put_in_table(username, email, password):
     return user_id
 
 def get_user_by_username(username):
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE username = ?", (username,))
     user = c.fetchone()
@@ -115,7 +115,7 @@ def get_user(username):
         return jsonify({'result': 'Error', 'message': 'User not found'}), 404
 
 def check_credentials(username, password):
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
     user = c.fetchone()

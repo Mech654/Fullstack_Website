@@ -15,7 +15,7 @@ def add_product():
     return Product
 
 def add_in_database(Product):
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     cursor = conn.cursor()
 
     cursor.execute('''

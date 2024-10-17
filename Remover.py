@@ -4,7 +4,7 @@ import sys
 def remove_product_by_name(product_name):
           try:
                     # Connect to the database
-                    conn = sqlite3.connect('example.db')
+                    conn = sqlite3.connect('static/example.db')
                     cursor = conn.cursor()
 
                     # Execute the delete statement

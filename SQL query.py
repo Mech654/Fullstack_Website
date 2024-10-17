@@ -23,7 +23,7 @@ def run_query(database, query):
             conn.close()
 
 if __name__ == "__main__":
-    database = "example.db"
+    database = "static/example.db"
     
     print("Enter your SQL query (end with a semicolon ';'):")
     user_query = ""

@@ -1,7 +1,7 @@
 import sqlite3
 
 def create_orders_table():
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders (
@@ -23,7 +23,7 @@ def create_orders_table():
 def logicgate(customer_id, product_name):
     create_orders_table()
     customer_id = int(customer_id)
-    conn = sqlite3.connect('example.db')
+    conn = sqlite3.connect('static/example.db')
     cursor = conn.cursor()
 
     # Check if the order already exists
