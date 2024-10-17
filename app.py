@@ -147,10 +147,14 @@ def logicgate_route():
 
 @app.route('/get_orders', methods=['POST'])                                                    # Get orders route
 def get_orders():
-    data = request.get_json()
-    user = data.get('customer_id')
-    if user is None:
-        return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
+    try:
+        data = request.get_json()
+        user = data.get('customer_id')
+        if user is None:
+            return jsonify({'result': 'Error', 'message': 'Invalid input'}), 400
 
-    orders = get_orders_by_customer(user)
-    return jsonify({'result': 'Success', 'orders': orders})
+        orders = get_orders_by_customer(user)
+        return jsonify({'result': 'Success', 'orders': orders})
+    except Exception as e:
+        print(f"Error in /get_orders: {e}")
+        return jsonify({'result': 'Error', 'message': str(e)}), 500
