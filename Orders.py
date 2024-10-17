@@ -68,7 +68,6 @@ def logicgate(customer_id, product_name):
     conn.close()
 
 
-
 def get_orders_by_customer(customer_id):
     create_orders_table()
     conn = sqlite3.connect('example.db')
@@ -89,3 +88,5 @@ def get_orders_by_customer(customer_id):
         }
         orders_list.append(order_data)
     return orders_list
+
+

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 import sqlite3
-from Orders import logicgate, get_orders_by_customer
+from Orders import logicgate, get_orders_by_customer, create_orders_table
 from Users import get_user_by_username, register_user, check_credentials, get_all_products
 
 app = Flask(__name__)
@@ -10,6 +10,14 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net"}})
 
 
+
+
+
+
+def initialize_database():
+    create_orders_table()
+
+    
 
 
 # region Routes
@@ -158,3 +166,7 @@ def get_orders():
     except Exception as e:
         print(f"Error in /get_orders: {e}")
         return jsonify({'result': 'Error', 'message': str(e)}), 500
+
+
+if __name__ == "__main__":
+    initialize_database()
