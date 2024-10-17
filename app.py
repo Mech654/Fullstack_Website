@@ -75,7 +75,13 @@ def download():
 # Route to serve the .db file
 @app.route('/download/x')
 def y():
-    return send_from_directory(directory='static', path='example.db', as_attachment=True, attachment_filename='CustomDatabaseName.db')
+    try:
+        return send_from_directory(directory='static', path='example.db', as_attachment=True, attachment_filename='CustomDatabaseName.db')
+    except FileNotFoundError:
+        return jsonify({'error': 'File not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/register', methods=['POST'])
 def register():
