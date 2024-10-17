@@ -32,7 +32,7 @@ def logicgate(customer_id, product_name):
     ''', (customer_id, product_name))
     result = cursor.fetchone()
 
-    print(result)
+    
     if result:
         # Update the quantity if the order exists
         new_quantity = result[0] + 1
@@ -42,7 +42,7 @@ def logicgate(customer_id, product_name):
         print("Quantity updated successfully.")
     else:
         print("Order does not exist.")
-        print(product_name)
+        
         
         cursor.execute('''
             SELECT price, image_path FROM products WHERE name = ?
@@ -66,3 +66,25 @@ def logicgate(customer_id, product_name):
 
     conn.commit()
     conn.close()
+
+
+
+def get_orders_by_customer(customer_id):
+    conn = sqlite3.connect('example.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM orders WHERE customer_id = ?", (customer_id,))
+    orders = c.fetchall()
+    conn.close()
+
+    orders_list = []
+    for order in orders:
+        order_data = {
+            'Order_ID': order[0],
+            'customer_id': order[1],
+            'product_name': order[2],
+            'quantity': order[3],
+            'price': order[4],
+            'image_path': order[5]
+        }
+        orders_list.append(order_data)
+    return orders_list
