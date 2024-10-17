@@ -76,7 +76,7 @@ def download():
 @app.route('/download/x')
 def y():
     try:
-        return send_from_directory(directory='static', path='example.db', as_attachment=True, attachment_filename='CustomDatabaseName.db')
+        return send_from_directory(directory='static', path='example.db', as_attachment=True, download_name='CustomDatabaseName.db')
     except FileNotFoundError:
         return jsonify({'error': 'File not found'}), 404
     except Exception as e:
