@@ -96,35 +96,37 @@ def extract_from_table(order_id):
     conn = sqlite3.connect('static/example.db')
     cursor = conn.cursor()
 
-    # Check if the order exists and get the current quantity
-    cursor.execute('''
-        SELECT quantity FROM orders WHERE id = ?
-    ''', (order_id,))
-    result = cursor.fetchone()
+    try:
+        # Check if the order exists and get the current quantity
+        cursor.execute('''
+            SELECT quantity FROM orders WHERE id = ?
+        ''', (order_id,))
+        result = cursor.fetchone()
 
-    if result:
-        current_quantity = result[0]
-        if current_quantity > 1:
-            # Decrease the quantity by 1
-            new_quantity = current_quantity - 1
-            cursor.execute('''
-                UPDATE orders SET quantity = ? WHERE id = ?
-            ''', (new_quantity, order_id))
-            print("Quantity decreased successfully.")
-            return True
+        if result:
+            current_quantity = result[0]
+            if current_quantity > 1:
+                # Decrease the quantity by 1
+                new_quantity = current_quantity - 1
+                cursor.execute('''
+                    UPDATE orders SET quantity = ? WHERE id = ?
+                ''', (new_quantity, order_id))
+                print("Quantity decreased successfully.")
+            else:
+                # If the quantity is 1, delete the order
+                cursor.execute('''
+                    DELETE FROM orders WHERE id = ?
+                ''', (order_id,))
+                print("Order deleted successfully.")
         else:
-            # If the quantity is 1, delete the order
-            cursor.execute('''
-                DELETE FROM orders WHERE id = ?
-            ''', (order_id,))
-            print("Order deleted successfully.")
-            return True
-    else:
-        print("Order not found.")
+            print("Order not found.")   
+            return False
+
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
         return False
+    finally:
+        conn.close()
 
-
-
-
-    conn.commit()
-    conn.close()
