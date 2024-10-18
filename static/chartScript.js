@@ -2,7 +2,7 @@ const ChartItems = document.getElementById('myChart');
 let total_type = 0;
 let total_quantity = 0;
 let total_price = 0;
-
+let inventory = [];
 async function fetchItemForChart() {
     total_type = 0;
     total_quantity = 0;
@@ -13,6 +13,7 @@ async function fetchItemForChart() {
         total_type = arrayy.orders.length;
         arrayy.orders.forEach((item) => {
             const itemDiv = document.createElement('div');
+            itemDiv.id = item.product_name;
             itemDiv.className = 'item';
             itemDiv.style.display = 'flex';
             itemDiv.style.alignItems = 'center';
@@ -30,13 +31,31 @@ async function fetchItemForChart() {
 
             itemDiv.innerHTML = `
                 <p style="margin: 0 10px;">Product Name: ${item.product_name}</p>
-                <p style="margin: 0 10px;">Quantity: ${item.quantity}</p>
+                <p id="quantity" style="margin: 0 10px;">Quantity: ${item.quantity}</p>
                 <p style="margin: 0 10px;">Price: $${item.price.toFixed(2)}</p>
                 <p style="margin: 0 10px;">Order ID: ${item.Order_ID}</p>
             `;
 
             itemDiv.prepend(imgElement);
             ChartItems.appendChild(itemDiv);
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Select all divs with the class 'item'
+                const divs = document.querySelectorAll('.item');
+                
+                // Add click event listener to each div
+                divs.forEach(div => {
+                    div.addEventListener('click', () => {
+                        handleDivClick(div.id);
+                    });
+                });
+            });
+                    
+
+
+
+
+
 
             total_quantity += item.quantity;
             total_price += (item.price * item.quantity);
@@ -67,6 +86,41 @@ async function fetchItemForChart() {
 
     info();
 }
+
+
+function handleDivClick(divId) {
+    if (Delete === true) {
+        const itemDiv = document.getElementById(divId);
+        itemDiv.style.backgroundColor = '#ff0000';
+
+        // Find and update quantity
+        const quantityElement = itemDiv.querySelector('#quantity');
+        let quantity = parseInt(quantityElement.textContent.replace('Quantity: ', ''), 10);
+        
+        if (quantity > 0) {
+            quantity--;
+            quantityElement.textContent = `Quantity: ${quantity}`;
+            total_quantity--;
+            
+            // Find the price from the innerHTML or database (not stored on the div)
+            const priceText = itemDiv.querySelector('p:nth-of-type(3)').textContent;
+            const price = parseFloat(priceText.replace('Price: $', ''));
+
+            total_price -= price;
+            info();
+        }
+
+        // Reset background after a short delay
+        setTimeout(() => {
+            itemDiv.style.backgroundColor = '#3980d5';
+        }, 1000);
+    }
+}
+
+
+
+
+
 
 async function fetchItemData() {
     let itemData = null;
