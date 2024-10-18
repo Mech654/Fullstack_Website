@@ -78,7 +78,7 @@ async function fetchItemForChart() {
 function handleDivClick(divId) {
     if (Delete === true) {
         const itemDiv = document.getElementById(divId);
-        const orderId = itemDiv.querySelector('p:nth-child(4)').textContent.split(': ')[1];
+        const orderId = itemDiv.querySelector('p:nth-child(5)').textContent.split(': ')[1];
         console.log('Order ID:', orderId);
         callServerMethod(orderId);
     }

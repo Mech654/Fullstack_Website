@@ -111,14 +111,20 @@ def extract_from_table(order_id):
                 UPDATE orders SET quantity = ? WHERE id = ?
             ''', (new_quantity, order_id))
             print("Quantity decreased successfully.")
+            return True
         else:
             # If the quantity is 1, delete the order
             cursor.execute('''
                 DELETE FROM orders WHERE id = ?
             ''', (order_id,))
             print("Order deleted successfully.")
+            return True
     else:
         print("Order not found.")
+        return False
+
+
+
 
     conn.commit()
     conn.close()

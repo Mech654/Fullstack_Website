@@ -187,7 +187,11 @@ def extract():
 
     if order_id:
         # Now you can use order_id in your extract_from_table function
-        extract_from_table(order_id)
+        removed = extract_from_table(order_id)
+        if removed:
+            response_data["message"] = f"Order {order_id} removed successfully"
+        else:
+            response_data["message"] = f"Shit happened"
         return jsonify(response_data)
     else:
         return jsonify({"message": "No order ID provided", "status": "error"}), 400
