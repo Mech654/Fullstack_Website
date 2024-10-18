@@ -2,7 +2,7 @@ const ChartItems = document.getElementById('myChart');
 let total_type = 0;
 let total_quantity = 0;
 let total_price = 0;
-let inventory = [];
+
 async function fetchItemForChart() {
     total_type = 0;
     total_quantity = 0;
@@ -37,25 +37,13 @@ async function fetchItemForChart() {
             `;
 
             itemDiv.prepend(imgElement);
-            ChartItems.appendChild(itemDiv);
 
-            document.addEventListener('DOMContentLoaded', () => {
-                // Select all divs with the class 'item'
-                const divs = document.querySelectorAll('.item');
-                
-                // Add click event listener to each div
-                divs.forEach(div => {
-                    div.addEventListener('click', () => {
-                        handleDivClick(div.id);
-                    });
-                });
+            // Attach click event listener directly to each itemDiv
+            itemDiv.addEventListener('click', () => {
+                handleDivClick(itemDiv.id);
             });
-                    
 
-
-
-
-
+            ChartItems.appendChild(itemDiv);
 
             total_quantity += item.quantity;
             total_price += (item.price * item.quantity);
@@ -87,7 +75,6 @@ async function fetchItemForChart() {
     info();
 }
 
-
 function handleDivClick(divId) {
     if (Delete === true) {
         const itemDiv = document.getElementById(divId);
@@ -96,12 +83,12 @@ function handleDivClick(divId) {
         // Find and update quantity
         const quantityElement = itemDiv.querySelector('#quantity');
         let quantity = parseInt(quantityElement.textContent.replace('Quantity: ', ''), 10);
-        
+
         if (quantity > 0) {
             quantity--;
             quantityElement.textContent = `Quantity: ${quantity}`;
             total_quantity--;
-            
+
             // Find the price from the innerHTML or database (not stored on the div)
             const priceText = itemDiv.querySelector('p:nth-of-type(3)').textContent;
             const price = parseFloat(priceText.replace('Price: $', ''));
@@ -116,11 +103,6 @@ function handleDivClick(divId) {
         }, 1000);
     }
 }
-
-
-
-
-
 
 async function fetchItemData() {
     let itemData = null;
@@ -149,4 +131,3 @@ function info() {
     document.getElementById('total_quantity').innerHTML = `Total quantity: ${total_quantity} <br>`;
     document.getElementById('total_price').innerHTML = `Total price: $${(total_price).toFixed(2)} <br>`;
 }
-
