@@ -72,55 +72,39 @@ async function fetchItemForChart() {
         console.error('No items found in the fetched data.');
     }
 
-    info();
+
 }
 
 function handleDivClick(divId) {
     if (Delete === true) {
         const itemDiv = document.getElementById(divId);
-
-        const quantityElement = itemDiv.querySelector('#quantity');
-        let quantity = parseInt(quantityElement.textContent.replace('Quantity: ', ''), 10);
-        
-        if (quantity > 1) {
-            quantity--;
-            quantityElement.textContent = `Quantity: ${quantity}`;
-            total_quantity--;
-            
-            const priceText = itemDiv.querySelector('p:nth-of-type(3)').textContent;
-            const price = parseFloat(priceText.replace('Price: $', ''));
-            total_price -= price;
-            info();
-
-
-        } else {
-            itemDiv.remove();
-
-        }
+        const orderId = itemDiv.querySelector('p:nth-child(4)').textContent.split(': ')[1];
+        console.log('Order ID:', orderId);
+        callServerMethod(orderId);
     }
 }
 
 
 
 
-async function callServerMethod() {
-
-    const url = 'https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/extract'; 
+async function callServerMethod(order_id) {
+    const url = 'https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/extract';
 
     try {
-
-        const response = await fetch(url);
-        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'order_id': order_id })
+        });
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
-
-        const data = await response.json(); 
+        const data = await response.json();
         console.log('Success:', data);
-
-
     } catch (error) {
         console.error('Error:', error);
     }
