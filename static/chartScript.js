@@ -101,10 +101,9 @@ function handleDivClick(divId) {
             // Reset background after 0.1s
             setTimeout(() => {
                 itemDiv.style.backgroundColor = originalColor; // Back to original color
-            }, 100);
-            itemDiv.style.backgroundColor = originalColor;
+            }, 100); // Wait for 0.1s before changing back to original color
         } else {
-            // If quantity is 0, remove the div after the background resets
+            // If quantity is 1, set the background back to original and remove the div
             setTimeout(() => {
                 itemDiv.style.backgroundColor = originalColor; // Back to original color
                 setTimeout(() => {
@@ -114,6 +113,7 @@ function handleDivClick(divId) {
         }
     }
 }
+
 
 
 
