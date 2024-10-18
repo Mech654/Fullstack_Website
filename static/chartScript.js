@@ -103,6 +103,35 @@ function handleDivClick(divId) {
 
 
 
+async function callServerMethod() {
+
+    const url = 'https://flaskapp-fahsabdxgzbteaet.northeurope-01.azurewebsites.net/extract'; 
+
+    try {
+
+        const response = await fetch(url);
+        
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+
+        const data = await response.json(); 
+        console.log('Success:', data);
+
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+
+
+
+
+
 async function fetchItemData() {
     let itemData = null;
     try {

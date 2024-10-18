@@ -90,3 +90,35 @@ def get_orders_by_customer(customer_id):
     return orders_list
 
 
+
+def extract(order_id):
+    create_orders_table()
+    conn = sqlite3.connect('static/example.db')
+    cursor = conn.cursor()
+
+    # Check if the order exists and get the current quantity
+    cursor.execute('''
+        SELECT quantity FROM orders WHERE id = ?
+    ''', (order_id,))
+    result = cursor.fetchone()
+
+    if result:
+        current_quantity = result[0]
+        if current_quantity > 1:
+            # Decrease the quantity by 1
+            new_quantity = current_quantity - 1
+            cursor.execute('''
+                UPDATE orders SET quantity = ? WHERE id = ?
+            ''', (new_quantity, order_id))
+            print("Quantity decreased successfully.")
+        else:
+            # If the quantity is 1, delete the order
+            cursor.execute('''
+                DELETE FROM orders WHERE id = ?
+            ''', (order_id,))
+            print("Order deleted successfully.")
+    else:
+        print("Order not found.")
+
+    conn.commit()
+    conn.close()

@@ -168,5 +168,32 @@ def get_orders():
         return jsonify({'result': 'Error', 'message': str(e)}), 500
 
 
+
+
+
+
+  
+    
+
+@app.route('/extract', methods=['GET'])
+def extract():
+    response_data = {
+        "message": "Hello from the server!",
+        "status": "success"
+    }
+    return jsonify(response_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     initialize_database()
