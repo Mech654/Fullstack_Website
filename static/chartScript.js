@@ -96,7 +96,7 @@ async function callServerMethod(order_id) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 'order_id': order_id })
+            body: JSON.stringify({ 'order_id': order_id })  // Sending order_id
         });
 
         if (!response.ok) {
@@ -109,7 +109,6 @@ async function callServerMethod(order_id) {
         console.error('Error:', error);
     }
 }
-
 
 
 

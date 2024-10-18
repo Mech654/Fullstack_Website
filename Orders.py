@@ -91,7 +91,7 @@ def get_orders_by_customer(customer_id):
 
 
 
-def extract(order_id):
+def extract_from_table(order_id):
     create_orders_table()
     conn = sqlite3.connect('static/example.db')
     cursor = conn.cursor()

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 import sqlite3
-from Orders import logicgate, get_orders_by_customer, create_orders_table
+from Orders import logicgate, get_orders_by_customer, create_orders_table, extract_from_table
 from Users import get_user_by_username, register_user, check_credentials, get_all_products
 
 app = Flask(__name__)
@@ -174,15 +174,23 @@ def get_orders():
 
   
     
-
-@app.route('/extract', methods=['GET'])
+@app.route('/extract', methods=['POST'])  # Change to POST
 def extract():
     response_data = {
         "message": "Hello from the server!",
         "status": "success"
     }
-    return jsonify(response_data)
 
+    # Get order_id from the POST request body
+    data = request.get_json()
+    order_id = data.get('order_id')
+
+    if order_id:
+        # Now you can use order_id in your extract_from_table function
+        extract_from_table(order_id)
+        return jsonify(response_data)
+    else:
+        return jsonify({"message": "No order ID provided", "status": "error"}), 400
 
 
 
