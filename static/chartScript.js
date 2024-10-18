@@ -97,10 +97,17 @@ function handleDivClick(divId) {
             info();
         }
 
-        // Reset background after a short delay
+        // Reset background after 0.1s
         setTimeout(() => {
             itemDiv.style.backgroundColor = '#3980d5';
-        }, 1000);
+        }, 100);
+
+        // Remove the div if the quantity reaches 0
+        if (quantity === 0) {
+            setTimeout(() => {
+                itemDiv.remove();
+            }, 100);  // A slight delay to allow the red color to flash before disappearing
+        }
     }
 }
 
