@@ -78,13 +78,7 @@ async function fetchItemForChart() {
 function handleDivClick(divId) {
     if (Delete === true) {
         const itemDiv = document.getElementById(divId);
-        const originalColor = '#3980d5';
-        const warningColor = '#ff0000'; // Red color
 
-        // Turn red
-        itemDiv.style.backgroundColor = warningColor;
-
-        // Find and update quantity
         const quantityElement = itemDiv.querySelector('#quantity');
         let quantity = parseInt(quantityElement.textContent.replace('Quantity: ', ''), 10);
         
@@ -92,24 +86,16 @@ function handleDivClick(divId) {
             quantity--;
             quantityElement.textContent = `Quantity: ${quantity}`;
             total_quantity--;
-            // Find the price from the innerHTML or database (not stored on the div)
+            
             const priceText = itemDiv.querySelector('p:nth-of-type(3)').textContent;
             const price = parseFloat(priceText.replace('Price: $', ''));
             total_price -= price;
             info();
 
-            // Reset background after 0.1s
-            setTimeout(() => {
-                itemDiv.style.backgroundColor = originalColor; // Back to original color
-            }, 100); // Wait for 0.1s before changing back to original color
+
         } else {
-            // If quantity is 1, set the background back to original and remove the div
-            setTimeout(() => {
-                itemDiv.style.backgroundColor = originalColor; // Back to original color
-                setTimeout(() => {
-                    itemDiv.remove(); // Remove the div
-                }, 100); // Delay removal slightly to make the color reset visible
-            }, 100);
+            itemDiv.remove();
+
         }
     }
 }
